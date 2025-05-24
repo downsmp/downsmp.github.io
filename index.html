@@ -18,11 +18,86 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
+      text-align: center;
+    }
+
+    header {
+      background-color: #2c2c2c;
+      padding: 1rem;
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-left,
+    .header-right {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .header-button {
+      background-color: var(--primary-color);
+      color: #000;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .header-button:hover {
+      background-color: #00ccb0;
+    }
+
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      text-align: center;
+      z-index: 20;
+    }
+
+    .popup-overlay.active {
+      display: flex;
+    }
+
+    .popup {
+      background: var(--accent-color);
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 400px;
+      text-align: left;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+      position: relative;
+    }
+
+    .popup a {
+      color: var(--primary-color);
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      color: var(--primary-color);
+    }
+
+    .container-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 80px);
     }
 
     .container {
@@ -58,6 +133,10 @@
       line-height: 1.6;
     }
 
+    .hidden {
+      display: none;
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 1rem;
@@ -66,25 +145,98 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="minecraft_title.png" alt="Minecraft Title" class="title-image" />
-    <div class="ip" onclick="copyIP()" title="Click to copy IP">
-      192.168.1.68
+  <header>
+    <div class="header-left">
+      <button class="header-button" onclick="showHome()" id="homeBtn">Home</button>
+      <button class="header-button" onclick="showRules()" id="rulesBtn">Rules</button>
     </div>
-    <div class="description">
-      Join a world of adventure, survival, and creativity... and conflict! <br/>
-      Play with friends or declare war!<br/>
-      No pain no fun!<br/><br/>
-      Season 0: Minecraft Cavemen Edition
+    <div class="header-right">
+      <button class="header-button" onclick="toggleLanguage()" id="languageBtn">Đổi sang tiếng Việt</button>
+      <button class="header-button" onclick="window.open('https://rvlt.gg/VQKVzAhj', '_blank')">Group Chat</button>
+    </div>
+  </header>
+
+  <div class="popup-overlay" id="popup">
+    <div class="popup">
+      <div class="popup-close" onclick="closeAllPopups()">&times;</div>
+      <h2 id="whyRevoltTitle">Why Revolt?</h2>
+      <p id="whyRevoltDesc">Because Discord does not respect privacy.</p>
+      <p><a href="https://rvlt.gg/VQKVzAhj" target="_blank">https://rvlt.gg/VQKVzAhj</a></p>
+    </div>
+  </div>
+
+  <div class="popup-overlay" id="ip-popup">
+    <div class="popup">
+      <div class="popup-close" onclick="closeAllPopups()">&times;</div>
+      <h2 id="joinRevoltTitle">Join Revolt server to obtain IP</h2>
+      <p><a href="https://rvlt.gg/VQKVzAhj" target="_blank">https://rvlt.gg/VQKVzAhj</a></p>
+      <button class="header-button" onclick="switchPopup('ip', 'revolt')">Why Revolt?</button>
+    </div>
+  </div>
+
+  <div class="container-wrapper">
+    <div class="container" id="home">
+      <img src="minecraft_title.png" alt="Minecraft Title" class="title-image" />
+      <div class="ip" onclick="togglePopup('ip')" title="Click to get IP" id="getIpBtn">
+        Get Server IP
+      </div>
+      <div class="description" id="homeDescription">
+        Join a world of adventure, survival, and creativity... and conflict! <br/>
+        Play with friends or declare war!<br/>
+        No pain no fun!<br/><br/>
+        Season 0: Minecraft Cavemen Edition
+      </div>
+    </div>
+
+    <div class="container hidden" id="rules">
+      <h2 id="rulesTitle">Rules</h2>
+      <p><strong>1. No Xray-ing, Exploiting and Hacking</strong><br/>insert text here</p>
+      <p><strong>2. No griefing without consent</strong></p>
     </div>
   </div>
 
   <script>
-    function copyIP() {
-      const ip = '192.168.1.68';
-      navigator.clipboard.writeText(ip).then(() => {
-        alert('Server IP copied to clipboard!');
-      });
+    let language = 'en';
+
+    function closeAllPopups() {
+      document.getElementById('popup').classList.remove('active');
+      document.getElementById('ip-popup').classList.remove('active');
+    }
+
+    function togglePopup(type) {
+      closeAllPopups();
+      const popupId = type === 'revolt' ? 'popup' : 'ip-popup';
+      document.getElementById(popupId).classList.add('active');
+    }
+
+    function switchPopup(from, to) {
+      togglePopup(to);
+    }
+
+    function showHome() {
+      document.getElementById('home').classList.remove('hidden');
+      document.getElementById('rules').classList.add('hidden');
+    }
+
+    function showRules() {
+      document.getElementById('home').classList.add('hidden');
+      document.getElementById('rules').classList.remove('hidden');
+    }
+
+    function toggleLanguage() {
+      language = language === 'en' ? 'vi' : 'en';
+      const isVi = language === 'vi';
+      document.getElementById('languageBtn').innerText = isVi ? 'Switch to English' : 'Đổi sang tiếng Việt';
+      document.getElementById('homeBtn').innerText = isVi ? 'Trang Chủ' : 'Home';
+      document.getElementById('rulesBtn').innerText = isVi ? 'Luật' : 'Rules';
+      document.getElementById('getIpBtn').innerText = isVi ? 'Lấy IP Server' : 'Get Server IP';
+      document.getElementById('homeDescription').innerHTML = isVi
+        ? 'Tham gia một thế giới phiêu lưu, sinh tồn và sáng tạo... và xung đột!<br/>Chơi cùng bạn bè hoặc tuyên chiến!<br/>Không đau thì không vui!<br/><br/>Mùa 0: Kỷ nguyên Người Tiền Sử Minecraft'
+        : 'Join a world of adventure, survival, and creativity... and conflict! <br/>Play with friends or declare war!<br/>No pain no fun!<br/><br/>Season 0: Minecraft Cavemen Edition';
+      document.getElementById('rulesTitle').innerText = isVi ? 'Luật chơi' : 'Rules';
+      document.getElementById('whyRevoltTitle').innerText = isVi ? 'Tại sao dùng Revolt?' : 'Why Revolt?';
+      document.getElementById('whyRevoltDesc').innerText = isVi ? 'Vì Discord không tôn trọng quyền riêng tư.' : 'Because Discord does not respect privacy.';
+      document.getElementById('joinRevoltTitle').innerText = isVi ? 'Tham gia Revolt để nhận IP' : 'Join Revolt server to obtain IP';
     }
   </script>
 </body>
