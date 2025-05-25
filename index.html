@@ -138,110 +138,10 @@
             display: none;
         }
         
-        .wiki-entry {
-            margin-bottom: 2rem;
-        }
-        
-        .wiki-entry h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .wiki-entry img {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-        
         @media (max-width: 600px) {
             .container {
                 padding: 1rem;
             }
-        }
-        /* Indent and scale down subcategories in the wiki */
-        
-        .wiki-category details.wiki-category {
-            margin-left: 1.5em;
-            font-size: 0.95em;
-        }
-        
-        .wiki-category details.wiki-category details.wiki-category {
-            margin-left: 2.5em;
-            font-size: 0.9em;
-        }
-        /* You can add more levels if you want deeper nesting */
-        /* Make sure summary text is also scaled */
-        
-        .wiki-category details.wiki-category>summary>strong {
-            font-size: 0.95em;
-        }
-        
-        .wiki-category details.wiki-category details.wiki-category>summary>strong {
-            font-size: 0.9em;
-        }
-        /* Add outline for buttons for accessibility */
-        
-        .header-button:focus,
-        .header-button:active {
-            outline: 2px solid var(--primary-color);
-            outline-offset: 2px;
-            box-shadow: 0 0 0 2px #00ffcc55;
-        }
-        /* Highlight interactive wiki spoilers */
-        
-        .wiki-category>summary.wiki-summary {
-            cursor: pointer;
-            background: linear-gradient(90deg, var(--primary-color) 0 10%, transparent 100%);
-            color: #000;
-            border-radius: 6px;
-            padding: 0.5em 1em;
-            font-weight: bold;
-            transition: background 0.2s, color 0.2s;
-            outline: none;
-            user-select: none;
-            margin-bottom: 0.3em;
-            position: relative;
-        }
-        
-        .wiki-category>summary.wiki-summary:hover,
-        .wiki-category>summary.wiki-summary:focus {
-            background: linear-gradient(90deg, #00ccb0 0 20%, transparent 100%);
-            color: #fff;
-        }
-        /* Add a little arrow indicator */
-        
-        .wiki-category>summary.wiki-summary::before {
-            content: "";
-            display: inline-block;
-            margin-right: 0.5em;
-            transition: transform 0.2s;
-        }
-        
-        .wiki-category[open]>summary.wiki-summary::before {
-            transform: rotate(90deg);
-        }
-        /* Optional: Indent nested spoilers */
-        
-        .wiki-category .wiki-category>summary.wiki-summary {
-            background: linear-gradient(90deg, #444 0 10%, transparent 100%);
-            color: #fff;
-            margin-left: 1.5em;
-        }
-        
-        .wiki-category .wiki-category>summary.wiki-summary:hover,
-        .wiki-category .wiki-category>summary.wiki-summary:focus {
-            background: linear-gradient(90deg, #666 0 20%, transparent 100%);
-        }
-        /* Style wiki entries */
-        
-        .wiki-entry {
-            background: #222;
-            border-radius: 8px;
-            margin: 0.5em 0 1em 0.5em;
-            padding: 1em;
-            color: #fff;
-            box-shadow: 0 2px 8px rgba(0, 255, 204, 0.05);
         }
     </style>
 </head>
@@ -284,53 +184,10 @@
                 Lấy IP máy chủ
             </div>
             <div class="description" id="homeDescription">
-                Tham gia vào thế giới phiêu lưu, sinh tồn, sáng tạo và tất nhiên... xung đột! <br/> Chơi cùng bạn bè và tuyên chiến!<br/> Không đổ máu không niềm vui!<br/><br/> Mùa 0 - Minecraft: Tối cổ
+                Tham gia vào thế giới phiêu lưu, sinh tồn, sáng tạo và tất nhiên... xung đột! <br/> Chơi cùng bạn bè và tuyên chiến!<br/> Không đổ máu không niềm vui!<br/><br/> Mùa 0 - Minecraft: Tối cổ<br/>Hãy xem wiki để tìm hiểu thêm!
             </div>
         </div>
 
-        <div class="container hidden" id="rules">
-            <h2 id="rulesTitle">Luật chơi</h2>
-            <p id="Rule1"><strong>1. Không Xray, lợi dụng bug hoặc hack</strong><br/>Tao sẽ chặt chim mày nếu mày làm vậy</p>
-            <p id="Rule2"><strong>2. Không phá hoại khi chưa được đồng ý</strong></p>
-
-        </div>
-
-        <div class="container hidden" id="wiki">
-            <h1>Wiki</h1>
-            <div id="wikiContent">
-                <!-- 
-                    Wiki Category/Entry Template:
-                    Copy and modify the <details> block below to add new categories or entries.
-                    You can nest <details> inside <details> for subcategories.
-                -->
-                <details class="wiki-category">
-                    <summary class="wiki-summary">
-                        <strong>Vũ khí</strong>
-                    </summary>
-                    <div class="wiki-entry">
-                        <p><strong>Vũ khí!</strong></p>
-                        <p>Một phần thiết yếu mọi thứ!</p>
-                        <img src="weapons.gif" alt="Ảnh minh họa" style="max-width:100%;border-radius:8px;" />
-                    </div>
-                    <!-- Example of a nested category -->
-                    <details class="wiki-category">
-                        <summary class="wiki-summary">
-                            <strong>Vũ khí Vanilla</strong>
-                        </summary>
-                        <div class="wiki-entry">
-                            <p><strong>Vũ khí Vanilla</strong></p>
-                            <p>Rất Classic. Rất dễ có được. Vô hạn</p>
-                            <!-- Optional image -->
-                        </div>
-                    </details>
-                </details>
-                <!-- 
-                    To add more categories or entries, copy the <details>...</details> block above.
-                    You can nest as many levels as you want.
-                -->
-            </div>
-        </div>
-    </div>
 
     <script>
         function closeAllPopups() {
@@ -349,18 +206,15 @@
         }
 
         function showHome() {
-            hideAllSections();
             document.getElementById('home').classList.remove('hidden');
         }
 
         function showRules() {
-            hideAllSections();
-            document.getElementById('rules').classList.remove('hidden');
+            window.open('https://github.com/downsmp/downsmp.github.io/wiki/Lu%E1%BA%ADt-v%C3%A0-C%C3%A1ch-%E1%BB%A9ng-x%E1%BB%AD', '_blank');
         }
 
         function showWiki() {
-            hideAllSections();
-            document.getElementById('wiki').classList.remove('hidden');
+            window.open('https://github.com/downsmp/downsmp.github.io/wiki', '_blank');
         }
 
         function hideAllSections() {
